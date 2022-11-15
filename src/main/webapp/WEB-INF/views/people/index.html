@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Список людей</title>
+</head>
+<body>
+
+<div id="people-list">
+    <p th:each="person : ${people}"
+       th:text="${person.getFullName() + ', ' + person.getBirthYear()}"/>
+</div>
+
+</body>
+</html>
