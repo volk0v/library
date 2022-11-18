@@ -27,16 +27,13 @@ public class PersonDAO {
     }
 
     public Optional<Person> show(int id) {
-        List<Person> queryResult = jdbcTemplate.query(
-                "SELECT * FROM person WHERE person_id=?",
+        List<Person> result = jdbcTemplate.query(
+                "SELECT *, person_id AS id FROM person WHERE person_id=?",
                 new BeanPropertyRowMapper<>(Person.class),
                 id
         );
 
-        Optional<Person> result = queryResult.stream().findAny();
-        result.ifPresent(person -> person.setId(id));
-
-        return result;
+        return result.stream().findAny();
     }
 
     public void save(Person person) {
