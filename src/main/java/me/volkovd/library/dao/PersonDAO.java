@@ -47,4 +47,17 @@ public class PersonDAO {
         );
     }
 
+    public void update(Person updatedPerson, int id) {
+        Optional<Person> personToBeUpdated = show(id);
+
+        if (personToBeUpdated.isEmpty()) return;
+
+        jdbcTemplate.update(
+                "UPDATE person SET full_name=?, birth_year=? WHERE person_id=?",
+                updatedPerson.getFullName(),
+                updatedPerson.getBirthYear(),
+                id
+        );
+    }
+
 }
