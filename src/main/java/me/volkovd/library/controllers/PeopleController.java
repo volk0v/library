@@ -28,6 +28,11 @@ public class PeopleController {
         return "people/index";
     }
 
+    @GetMapping("/new")
+    public String getPageForCreatingPerson() {
+        return "people/new";
+    }
+
     @PostMapping()
     public String createPerson(@ModelAttribute("person") Person person) {
         personDAO.save(person);
