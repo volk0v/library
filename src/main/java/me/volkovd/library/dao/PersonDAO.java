@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class PersonDAO {
@@ -23,6 +24,19 @@ public class PersonDAO {
                 "SELECT * FROM person",
                 new BeanPropertyRowMapper<>(Person.class)
         );
+    }
+
+    public Optional<Person> show(int id) {
+        List<Person> queryResult = jdbcTemplate.query(
+                "SELECT * FROM person WHERE person_id=?",
+                new BeanPropertyRowMapper<>(Person.class),
+                id
+        );
+
+        Optional<Person> result = queryResult.stream().findAny();
+        result.ifPresent(person -> person.setId(id));
+
+        return result;
     }
 
     public void save(Person person) {
