@@ -14,5 +14,11 @@
     <button type="submit">Редактировать</button>
 </form>
 
+<br>
+
+<form th:method="DELETE" th:action="@{/people/{id} (id=${person.getId()})}">
+    <button type="submit">Удалить</button>
+</form>
+
 </body>
 </html>
