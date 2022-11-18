@@ -39,6 +39,18 @@ public class PeopleController {
         return "redirect:/people";
     }
 
+    @GetMapping("/{id}")
+    public String getPageForPerson(@PathVariable("id") int id,
+                                   Model model) {
+        Optional<Person> foundPerson = personDAO.show(id);
+
+        if (foundPerson.isEmpty()) return "redirect:/people";
+
+        model.addAttribute("person", foundPerson.get());
+
+        return "people/show";
+    }
+
     @GetMapping("/{id}/edit")
     public String getPageForEditingPerson(@PathVariable("id") int id,
                                           Model model) {
