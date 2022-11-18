@@ -5,10 +5,7 @@ import me.volkovd.library.models.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/people")
@@ -36,6 +33,14 @@ public class PeopleController {
     @PostMapping()
     public String createPerson(@ModelAttribute("person") Person person) {
         personDAO.save(person);
+
+        return "redirect:/people";
+    }
+
+    @PatchMapping("/{id}")
+    public String editPerson(@ModelAttribute("person") Person person,
+                             @PathVariable("id") int id) {
+        personDAO.update(person, id);
 
         return "redirect:/people";
     }
