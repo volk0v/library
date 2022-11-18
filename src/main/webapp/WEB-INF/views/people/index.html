@@ -10,8 +10,12 @@
 <hr>
 
 <div id="people-list">
-    <p th:each="person : ${people}"
-       th:text="${person.getFullName() + ', ' + person.getBirthYear()}"/>
+    <div th:each="person : ${people}">
+        <a th:text="${person.getFullName() + ', ' + person.getBirthYear()}"
+           th:href="@{/people/{id} (id=${person.getId()})}"
+        />
+        <br>
+    </div>
 </div>
 
 </body>
