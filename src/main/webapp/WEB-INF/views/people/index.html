@@ -6,6 +6,9 @@
 </head>
 <body>
 
+<a th:href="@{/people/new}">Добавить человека</a>
+<hr>
+
 <div id="people-list">
     <p th:each="person : ${people}"
        th:text="${person.getFullName() + ', ' + person.getBirthYear()}"/>
