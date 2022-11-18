@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @Controller
 @RequestMapping("/people")
 public class PeopleController {
@@ -35,6 +37,20 @@ public class PeopleController {
         personDAO.save(person);
 
         return "redirect:/people";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String getPageForEditingPerson(@PathVariable("id") int id,
+                                          Model model) {
+        Optional<Person> foundPerson = personDAO.show(id);
+
+        if (foundPerson.isPresent()) {
+            model.addAttribute("person", foundPerson.get());
+        } else {
+            return "redirect:/people";
+        }
+
+        return "people/edit";
     }
 
     @PatchMapping("/{id}")
