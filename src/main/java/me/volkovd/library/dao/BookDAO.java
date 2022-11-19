@@ -45,4 +45,18 @@ public class BookDAO {
         );
     }
 
+    public void update(Book updatedBook, int id) {
+        Optional<Book> foundBook = getById(id);
+
+        if (foundBook.isEmpty()) return;
+
+        jdbcTemplate.update(
+                "UPDATE book SET title=?, author_name=?, year_of_publication=? WHERE book_id=?",
+                updatedBook.getTitle(),
+                updatedBook.getAuthorName(),
+                updatedBook.getYearOfPublication(),
+                id
+        );
+    }
+
 }
