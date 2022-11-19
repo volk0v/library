@@ -5,8 +5,10 @@ import me.volkovd.library.models.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,7 +52,11 @@ public class BooksController {
     }
 
     @PostMapping()
-    public String saveBook(@ModelAttribute("book") Book book) {
+    public String saveBook(@ModelAttribute("book") @Valid Book book,
+                           BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            return "books/new";
+
         bookDAO.save(book);
 
         return "redirect:/books";
@@ -69,8 +75,12 @@ public class BooksController {
     }
 
     @PatchMapping("/{id}")
-    public String editBook(@ModelAttribute("book") Book book,
+    public String editBook(@ModelAttribute("book") @Valid Book book,
+                           BindingResult bindingResult,
                            @PathVariable("id") int id) {
+        if (bindingResult.hasErrors())
+            return "books/edit";
+
         bookDAO.update(book, id);
 
         return "redirect:/books";
