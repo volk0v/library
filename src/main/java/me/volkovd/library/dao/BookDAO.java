@@ -59,4 +59,11 @@ public class BookDAO {
         );
     }
 
+    public void deleteById(int id) {
+        jdbcTemplate.update(
+                "DELETE FROM book WHERE book_id=?",
+                id
+        );
+    }
+
 }
