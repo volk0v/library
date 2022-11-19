@@ -3,18 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Добавить человека</title>
+
+    <style>
+        .red-color {
+            color: red;
+        }
+    </style>
 </head>
 <body>
 
 <div>
-  <form th:method="POST" th:action="@{/people}">
+  <form th:method="POST" th:action="@{/people}" th:object="${person}">
     <label for="fullName">Введите ФИО:</label>
     <input type="text" name="fullName" id="fullName">
-
+    <div class="red-color" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></div>
     <br>
 
     <label for="birthYear">Введите год рождения:</label>
     <input type="text" name="birthYear" id="birthYear">
+    <div class="red-color" th:if="${#fields.hasErrors('birthYear')}" th:errors="*{birthYear}"></div>
     <br>
 
     <input type="submit" value="Добавить">

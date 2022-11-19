@@ -3,6 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Редактировать данные человека</title>
+
+    <style>
+      .red-color {
+        color: red;
+      }
+    </style>
 </head>
 <body>
 
@@ -10,11 +16,13 @@
   <form th:method="PATCH" th:action="@{/people/{id}(id=${person.getId()})}" th:object="${person}">
     <label for="fullName">Введите ФИО:</label>
     <input type="text" th:field="*{fullName}" id="fullName">
+    <div class="red-color" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></div>
 
     <br>
 
     <label for="birthYear">Введите год рождения:</label>
     <input type="text" th:field="*{birthYear}" id="birthYear">
+    <div class="red-color" th:if="${#fields.hasErrors('birthYear')}" th:errors="*{birthYear}"></div>
     <br>
 
     <input type="submit" value="Редактировать">
