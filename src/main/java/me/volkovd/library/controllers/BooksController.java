@@ -56,4 +56,12 @@ public class BooksController {
         return "redirect:/books";
     }
 
+    @PatchMapping("/{id}")
+    public String editBook(@ModelAttribute("book") Book book,
+                           @PathVariable("id") int id) {
+        bookDAO.update(book, id);
+
+        return "redirect:/books";
+    }
+
 }
