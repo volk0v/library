@@ -9,11 +9,11 @@ public class Person {
 
     private int id;
 
-    @NotEmpty(message = "Name should not be empty")
-    @Size(min = 2, max = 150, message = "Name size should be between 2 and 150 characters")
+    @NotEmpty(message = "Имя не может быть пустым")
+    @Size(min = 2, max = 150, message = "Имя должно быть длиной от 2 до 150 символов")
     private String fullName;
 
-    @Min(value = 0, message = "Birth year should be bigger than 0")
+    @Min(value = 0, message = "Год рождения должен быть больше 0")
     private int birthYear;
 
     public Person() {}
