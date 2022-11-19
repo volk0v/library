@@ -56,6 +56,18 @@ public class BooksController {
         return "redirect:/books";
     }
 
+    @GetMapping("/{id}/edit")
+    public String getPageOfEditingBook(@PathVariable("id") int id,
+                                       Model model) {
+        Optional<Book> foundBook = bookDAO.getById(id);
+
+        if (foundBook.isEmpty()) return "redirect:/books";
+
+        model.addAttribute("book", foundBook.get());
+
+        return "books/edit";
+    }
+
     @PatchMapping("/{id}")
     public String editBook(@ModelAttribute("book") Book book,
                            @PathVariable("id") int id) {
