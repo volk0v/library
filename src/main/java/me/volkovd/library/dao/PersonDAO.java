@@ -39,7 +39,7 @@ public class PersonDAO {
     public Optional<Person> show(String fullName) {
         List<Person> result = jdbcTemplate.query(
                 "SELECT *, person_id AS id FROM person WHERE full_name=?",
-                new BeanPropertyRowMapper<>(),
+                new BeanPropertyRowMapper<>(Person.class),
                 fullName
         );
 
