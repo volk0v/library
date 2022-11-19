@@ -36,4 +36,13 @@ public class BookDAO {
         return queryResult.stream().findAny();
     }
 
+    public void save(Book book) {
+        jdbcTemplate.update(
+                "INSERT INTO book(title, author_name, year_of_publication) VALUES (?,?,?)",
+                book.getTitle(),
+                book.getAuthorName(),
+                book.getYearOfPublication()
+        );
+    }
+
 }
