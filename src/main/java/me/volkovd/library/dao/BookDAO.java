@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class BookDAO {
@@ -23,6 +24,16 @@ public class BookDAO {
                 "SELECT *, book_id AS id FROM book",
                 new BeanPropertyRowMapper<>(Book.class)
         );
+    }
+
+    public Optional<Book> getById(int id) {
+        List<Book> queryResult = jdbcTemplate.query(
+                "SELECT *, book_id AS id FROM book WHERE book_id=?",
+                new BeanPropertyRowMapper<>(Book.class),
+                id
+        );
+
+        return queryResult.stream().findAny();
     }
 
 }
