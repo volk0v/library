@@ -42,6 +42,13 @@ public class BooksController {
         return "books/show";
     }
 
+    @GetMapping("/new")
+    public String getPageOfAddingNewBook(Model model) {
+        model.addAttribute("book", new Book());
+
+        return "books/new";
+    }
+
     @PostMapping()
     public String saveBook(@ModelAttribute("book") Book book) {
         bookDAO.save(book);
