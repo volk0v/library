@@ -36,6 +36,16 @@ public class PersonDAO {
         return result.stream().findAny();
     }
 
+    public Optional<Person> show(String fullName) {
+        List<Person> result = jdbcTemplate.query(
+                "SELECT *, person_id AS id FROM person WHERE full_name=?",
+                new BeanPropertyRowMapper<>(),
+                fullName
+        );
+
+        return result.stream().findAny();
+    }
+
     public void save(Person person) {
         jdbcTemplate.update(
                 "INSERT INTO person(full_name, birth_year) VALUES (?, ?)",
