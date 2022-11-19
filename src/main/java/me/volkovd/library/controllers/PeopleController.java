@@ -5,8 +5,10 @@ import me.volkovd.library.models.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @Controller
@@ -33,7 +35,11 @@ public class PeopleController {
     }
 
     @PostMapping()
-    public String createPerson(@ModelAttribute("person") Person person) {
+    public String createPerson(@ModelAttribute("person") @Valid Person person,
+                               BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            return "people/new";
+
         personDAO.save(person);
 
         return "redirect:/people";
@@ -66,8 +72,12 @@ public class PeopleController {
     }
 
     @PatchMapping("/{id}")
-    public String editPerson(@ModelAttribute("person") Person person,
+    public String editPerson(@ModelAttribute("person") @Valid Person person,
+                             BindingResult bindingResult,
                              @PathVariable("id") int id) {
+        if (bindingResult.hasErrors())
+            return "people/edit";
+
         personDAO.update(person, id);
 
         return "redirect:/people";
