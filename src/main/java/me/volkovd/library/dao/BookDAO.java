@@ -68,4 +68,22 @@ public class BookDAO {
         );
     }
 
+    public void assign(int bookId, int personId) {
+        Number personIdFromDb = jdbcTemplate.queryForObject(
+                "SELECT person_id FROM book WHERE book_id=?",
+                Integer.class,
+                bookId
+        );
+
+        int foundPersonId = personIdFromDb != null ? personIdFromDb.intValue() : 0;
+
+        if (foundPersonId != 0) return;
+
+        jdbcTemplate.update(
+                "UPDATE book SET person_id=? WHERE book_id=?",
+                personId,
+                bookId
+        );
+    }
+
 }
