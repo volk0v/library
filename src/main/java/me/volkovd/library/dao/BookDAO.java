@@ -21,14 +21,16 @@ public class BookDAO {
 
     public List<Book> getAll() {
         return jdbcTemplate.query(
-                "SELECT *, book_id AS id FROM book",
+                "SELECT book_id AS id, title, author_name, year_of_publication, " +
+                        "COALESCE(person_id, 0) AS person_id FROM book",
                 new BeanPropertyRowMapper<>(Book.class)
         );
     }
 
     public Optional<Book> getById(int id) {
         List<Book> queryResult = jdbcTemplate.query(
-                "SELECT *, book_id AS id FROM book WHERE book_id=?",
+                "SELECT book_id AS id, title, author_name, year_of_publication, " +
+                        "COALESCE(person_id, 0) AS person_id FROM book WHERE book_id=?",
                 new BeanPropertyRowMapper<>(Book.class),
                 id
         );
