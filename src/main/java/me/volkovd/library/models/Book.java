@@ -16,6 +16,7 @@ public class Book {
     private String authorName;
 
     private int yearOfPublication;
+    private int personId;
 
     public Book() {}
 
@@ -55,6 +56,14 @@ public class Book {
 
     public void setYearOfPublication(int yearOfPublication) {
         this.yearOfPublication = yearOfPublication;
+    }
+
+    public int getPersonId() {
+        return personId;
+    }
+
+    public void setPersonId(int personId) {
+        this.personId = personId;
     }
 
 }
