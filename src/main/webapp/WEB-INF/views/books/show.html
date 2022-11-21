@@ -25,6 +25,14 @@
     </form>
 </div>
 
+<div th:if="${bookOwner != null}">
+    <span>Книга сейчас у: <span th:text="${bookOwner.getFullName()}"/></span>
+
+    <form th:method="PATCH" th:action="@{/books/{bookId}/free (bookId=${book.getId()})}">
+        <input type="submit" value="Освободить">
+    </form>
+</div>
+
 <hr>
 
 <form th:method="GET" th:action="@{/books/{id}/edit (id=${book.getId()})}">
