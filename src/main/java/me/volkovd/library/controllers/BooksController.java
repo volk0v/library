@@ -3,6 +3,7 @@ package me.volkovd.library.controllers;
 import me.volkovd.library.dao.BookDAO;
 import me.volkovd.library.dao.PersonDAO;
 import me.volkovd.library.models.Book;
+import me.volkovd.library.models.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,7 +43,16 @@ public class BooksController {
         if (foundBook.isEmpty())
             return "redirect:/books";
 
-        model.addAttribute("book", foundBook.get());
+        Book book = foundBook.get();
+
+        model.addAttribute("book", book);
+        model.addAttribute("people", personDAO.index());
+
+        if (book.getPersonId() != 0) {
+            int ownerId = book.getPersonId();
+            Person bookOwner = personDAO.show(ownerId).orElse(null);
+            model.addAttribute("bookOwner", bookOwner);
+        }
 
         return "books/show";
     }
