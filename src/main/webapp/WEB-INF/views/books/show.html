@@ -10,6 +10,21 @@
     <p th:text="${book.getTitle() + ', ' + book.getAuthorName() + ', ' + book.getYearOfPublication()}"/>
 </div>
 
+<div th:if="${bookOwner == null}">
+    <span>Эта книга свободна. Кому назначить её?</span>
+    <form th:method="PATCH" th:action="@{/books/{bookId}/assign (bookId=${book.getId()})}">
+        <label for="personId">Выберите человека:</label>
+        <select name="personId" id="personId">
+            <option th:each="person : ${people}"
+                    th:value="${person.getId()}"
+                    th:text="${person.getFullName()}"
+            />
+        </select>
+
+        <input type="submit" value="Назначить">
+    </form>
+</div>
+
 <hr>
 
 <form th:method="GET" th:action="@{/books/{id}/edit (id=${book.getId()})}">
