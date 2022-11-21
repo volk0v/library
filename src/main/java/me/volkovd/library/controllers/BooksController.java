@@ -104,4 +104,11 @@ public class BooksController {
         return "redirect:/books/" + bookId;
     }
 
+    @PatchMapping("/{bookId}/free")
+    public String freeBook(@PathVariable("bookId") int bookId) {
+        bookDAO.free(bookId);
+
+        return "redirect:/books/" + bookId;
+    }
+
 }
