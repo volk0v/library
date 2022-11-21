@@ -20,7 +20,7 @@
     <br>
 
     <label for="birthYear">Введите год рождения:</label>
-    <input type="text" name="birthYear" id="birthYear">
+    <input type="number" name="birthYear" id="birthYear">
     <div class="red-color" th:if="${#fields.hasErrors('birthYear')}" th:errors="*{birthYear}"></div>
     <br>
 
