@@ -33,7 +33,9 @@ public class PeopleController {
     }
 
     @GetMapping("/new")
-    public String getPageForCreatingPerson() {
+    public String getPageForCreatingPerson(Model model) {
+        model.addAttribute("person", new Person());
+
         return "people/new";
     }
 
