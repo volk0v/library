@@ -28,7 +28,7 @@ public class PeopleController {
     }
 
     @GetMapping
-    public String index(Model model) {
+    public String getPageWithAllPeople(Model model) {
         model.addAttribute("people", personDAO.getAll());
 
         return "people/index";
