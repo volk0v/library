@@ -1,5 +1,6 @@
 package me.volkovd.library.dao;
 
+import me.volkovd.library.models.Book;
 import me.volkovd.library.models.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -70,6 +71,15 @@ public class PersonDAO {
     public void delete(int id) {
         jdbcTemplate.update(
                 "DELETE FROM person WHERE person_id=?",
+                id
+        );
+    }
+
+    public List<Book> getBooksForPerson(int id) {
+        return jdbcTemplate.query(
+                "SELECT book_id AS id, title, " +
+                        "author_name, year_of_publication, COALESCE(person_id, 0) AS person_id FROM book WHERE person_id=?",
+                new BeanPropertyRowMapper<>(Book.class),
                 id
         );
     }
