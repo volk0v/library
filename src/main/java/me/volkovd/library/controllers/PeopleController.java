@@ -1,6 +1,7 @@
 package me.volkovd.library.controllers;
 
 import me.volkovd.library.dao.PersonDAO;
+import me.volkovd.library.models.Book;
 import me.volkovd.library.models.Person;
 import me.volkovd.library.validators.PersonValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -59,7 +61,11 @@ public class PeopleController {
 
         if (foundPerson.isEmpty()) return "redirect:/people";
 
-        model.addAttribute("person", foundPerson.get());
+        Person person = foundPerson.get();
+        List<Book> books = personDAO.getBooksForPerson(person.getId());
+
+        model.addAttribute("person", person);
+        model.addAttribute("books", books);
 
         return "people/show";
     }
