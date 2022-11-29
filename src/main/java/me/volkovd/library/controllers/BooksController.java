@@ -46,7 +46,7 @@ public class BooksController {
         Book book = foundBook.get();
 
         model.addAttribute("book", book);
-        model.addAttribute("people", personDAO.index());
+        model.addAttribute("people", personDAO.getAll());
 
         if (book.getPersonId() != 0) {
             int ownerId = book.getPersonId();
