@@ -36,7 +36,7 @@ public class PersonDAO {
         return result.stream().findAny();
     }
 
-    public Optional<Person> show(String fullName) {
+    public Optional<Person> getByFullName(String fullName) {
         List<Person> result = jdbcTemplate.query(
                 "SELECT *, person_id AS id FROM person WHERE full_name=?",
                 new BeanPropertyRowMapper<>(Person.class),
