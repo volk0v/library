@@ -55,7 +55,7 @@ public class PeopleController {
     @GetMapping("/{id}")
     public String getPageForPerson(@PathVariable("id") int id,
                                    Model model) {
-        Optional<Person> foundPerson = personDAO.show(id);
+        Optional<Person> foundPerson = personDAO.getById(id);
 
         if (foundPerson.isEmpty()) return "redirect:/people";
 
@@ -67,7 +67,7 @@ public class PeopleController {
     @GetMapping("/{id}/edit")
     public String getPageForEditingPerson(@PathVariable("id") int id,
                                           Model model) {
-        Optional<Person> foundPerson = personDAO.show(id);
+        Optional<Person> foundPerson = personDAO.getById(id);
 
         if (foundPerson.isPresent()) {
             model.addAttribute("person", foundPerson.get());

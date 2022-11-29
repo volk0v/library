@@ -50,7 +50,7 @@ public class BooksController {
 
         if (book.getPersonId() != 0) {
             int ownerId = book.getPersonId();
-            Person bookOwner = personDAO.show(ownerId).orElse(null);
+            Person bookOwner = personDAO.getById(ownerId).orElse(null);
             model.addAttribute("bookOwner", bookOwner);
         }
 

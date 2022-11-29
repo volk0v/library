@@ -26,7 +26,7 @@ public class PersonDAO {
         );
     }
 
-    public Optional<Person> show(int id) {
+    public Optional<Person> getById(int id) {
         List<Person> result = jdbcTemplate.query(
                 "SELECT *, person_id AS id FROM person WHERE person_id=?",
                 new BeanPropertyRowMapper<>(Person.class),
@@ -55,7 +55,7 @@ public class PersonDAO {
     }
 
     public void update(Person updatedPerson, int id) {
-        Optional<Person> personToBeUpdated = show(id);
+        Optional<Person> personToBeUpdated = getById(id);
 
         if (personToBeUpdated.isEmpty()) return;
 
