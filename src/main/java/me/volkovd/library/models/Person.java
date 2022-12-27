@@ -1,19 +1,27 @@
 package me.volkovd.library.models;
 
+import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.util.Objects;
 
+@Entity
+@Table(name = "person")
 public class Person {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "person_id")
     private int id;
 
     @NotEmpty(message = "Имя не может быть пустым")
     @Size(min = 2, max = 150, message = "Имя должно быть длиной от 2 до 150 символов")
+    @Column(name = "full_name")
     private String fullName;
 
     @Min(value = 0, message = "Год рождения должен быть больше 0")
+    @Column(name = "birth_year")
     private int birthYear;
 
     public Person() {}
