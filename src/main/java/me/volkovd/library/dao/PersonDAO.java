@@ -70,11 +70,15 @@ public class PersonDAO {
         session.update(updatedPerson);
     }
 
+    @Transactional
     public void delete(int id) {
-        jdbcTemplate.update(
-                "DELETE FROM person WHERE person_id=?",
-                id
-        );
+        Session session = sessionFactory.getCurrentSession();
+
+        Person person = session.get(Person.class, id);
+
+        if (person == null) return;
+
+        session.delete(person);
     }
 
     public List<Book> getBooksForPerson(int id) {
