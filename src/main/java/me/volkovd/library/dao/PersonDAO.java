@@ -61,17 +61,13 @@ public class PersonDAO {
         session.save(person);
     }
 
+    @Transactional
     public void update(Person updatedPerson, int id) {
-        Optional<Person> personToBeUpdated = getById(id);
+        Session session = sessionFactory.getCurrentSession();
 
-        if (personToBeUpdated.isEmpty()) return;
+        updatedPerson.setId(id);
 
-        jdbcTemplate.update(
-                "UPDATE person SET full_name=?, birth_year=? WHERE person_id=?",
-                updatedPerson.getFullName(),
-                updatedPerson.getBirthYear(),
-                id
-        );
+        session.update(updatedPerson);
     }
 
     public void delete(int id) {
