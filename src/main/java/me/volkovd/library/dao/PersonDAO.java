@@ -44,14 +44,14 @@ public class PersonDAO {
         return Optional.ofNullable(person);
     }
 
+    @Transactional(readOnly = true)
     public Optional<Person> getByFullName(String fullName) {
-        List<Person> result = jdbcTemplate.query(
-                "SELECT *, person_id AS id FROM person WHERE full_name=?",
-                new BeanPropertyRowMapper<>(Person.class),
-                fullName
-        );
+        Session session = sessionFactory.getCurrentSession();
 
-        return result.stream().findAny();
+        Query<Person> query = session.createQuery("SELECT p FROM Person p WHERE p.fullName=?1", Person.class);
+        query.setParameter(1, fullName);
+
+        return query.getResultList().stream().findAny();
     }
 
     public void save(Person person) {
