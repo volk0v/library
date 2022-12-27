@@ -35,14 +35,13 @@ public class PersonDAO {
         return people.getResultList();
     }
 
+    @Transactional(readOnly = true)
     public Optional<Person> getById(int id) {
-        List<Person> result = jdbcTemplate.query(
-                "SELECT *, person_id AS id FROM person WHERE person_id=?",
-                new BeanPropertyRowMapper<>(Person.class),
-                id
-        );
+        Session session = sessionFactory.getCurrentSession();
 
-        return result.stream().findAny();
+        Person person = session.get(Person.class, id);
+
+        return Optional.ofNullable(person);
     }
 
     public Optional<Person> getByFullName(String fullName) {
