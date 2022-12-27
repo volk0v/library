@@ -8,23 +8,25 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 
 @Configuration
-@PropertySource("classpath:database.properties")
+@PropertySource("classpath:hibernate.properties")
+@EnableTransactionManagement
 public class DatabaseConfig {
 
-    @Value("${database.driver_class}")
+    @Value("${hibernate.driver_class}")
     private String DRIVER_CLASS;
 
-    @Value("${database.url}")
+    @Value("${hibernate.connection.url}")
     private String URL;
 
-    @Value("${database.username}")
+    @Value("${hibernate.connection.username}")
     private String USERNAME;
 
-    @Value("${database.password}")
+    @Value("${hibernate.connection.password}")
     private String PASSWORD;
 
     private final Environment env;
