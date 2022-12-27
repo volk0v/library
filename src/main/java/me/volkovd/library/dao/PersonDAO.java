@@ -54,12 +54,11 @@ public class PersonDAO {
         return query.getResultList().stream().findAny();
     }
 
+    @Transactional
     public void save(Person person) {
-        jdbcTemplate.update(
-                "INSERT INTO person(full_name, birth_year) VALUES (?, ?)",
-                person.getFullName(),
-                person.getBirthYear()
-        );
+        Session session = sessionFactory.getCurrentSession();
+
+        session.save(person);
     }
 
     public void update(Person updatedPerson, int id) {
