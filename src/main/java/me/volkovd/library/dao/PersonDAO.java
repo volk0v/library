@@ -2,11 +2,14 @@ package me.volkovd.library.dao;
 
 import me.volkovd.library.models.Book;
 import me.volkovd.library.models.Person;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,11 +26,13 @@ public class PersonDAO {
         this.sessionFactory = sessionFactory;
     }
 
+    @Transactional(readOnly = true)
     public List<Person> getAll() {
-        return jdbcTemplate.query(
-                "SELECT *, person_id AS id FROM person",
-                new BeanPropertyRowMapper<>(Person.class)
-        );
+        Session session = sessionFactory.getCurrentSession();
+
+        Query<Person> people = session.createQuery("SELECT p FROM Person p", Person.class);
+
+        return people.getResultList();
     }
 
     public Optional<Person> getById(int id) {
