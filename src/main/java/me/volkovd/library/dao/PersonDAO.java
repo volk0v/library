@@ -2,6 +2,7 @@ package me.volkovd.library.dao;
 
 import me.volkovd.library.models.Book;
 import me.volkovd.library.models.Person;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -14,10 +15,12 @@ import java.util.Optional;
 public class PersonDAO {
 
     private final JdbcTemplate jdbcTemplate;
+    private final SessionFactory sessionFactory;
 
     @Autowired
-    public PersonDAO(JdbcTemplate jdbcTemplate) {
+    public PersonDAO(JdbcTemplate jdbcTemplate, SessionFactory sessionFactory) {
         this.jdbcTemplate = jdbcTemplate;
+        this.sessionFactory = sessionFactory;
     }
 
     public List<Person> getAll() {
