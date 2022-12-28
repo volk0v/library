@@ -86,11 +86,21 @@ public class BookDAO {
         newOwner.addBook(book);
     }
 
+    @Transactional
     public void free(int bookId) {
-        jdbcTemplate.update(
-                "UPDATE book SET person_id=NULL WHERE book_id=?",
-                bookId
-        );
+        Session session = sessionFactory.getCurrentSession();
+
+        Book book = session.get(Book.class, bookId);
+
+        Person owner = book.getOwner();
+
+        if (owner != null) {
+            owner.removeBook(book);
+        } else {
+            book.setOwner(null);
+        }
+
+        session.update(book);
     }
 
 }
