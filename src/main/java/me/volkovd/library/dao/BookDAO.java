@@ -1,11 +1,14 @@
 package me.volkovd.library.dao;
 
 import me.volkovd.library.models.Book;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,12 +25,13 @@ public class BookDAO {
         this.sessionFactory = sessionFactory;
     }
 
+    @Transactional(readOnly = true)
     public List<Book> getAll() {
-        return jdbcTemplate.query(
-                "SELECT book_id AS id, title, author_name, year_of_publication, " +
-                        "COALESCE(person_id, 0) AS person_id FROM book",
-                new BeanPropertyRowMapper<>(Book.class)
-        );
+        Session session = sessionFactory.getCurrentSession();
+
+        Query<Book> query = session.createQuery("SELECT b FROM Book b", Book.class);
+
+        return query.getResultList();
     }
 
     public Optional<Book> getById(int id) {
