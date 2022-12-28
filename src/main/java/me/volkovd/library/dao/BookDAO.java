@@ -47,18 +47,18 @@ public class BookDAO {
         session.save(book);
     }
 
+    @Transactional
     public void update(Book updatedBook, int id) {
-        Optional<Book> foundBook = getById(id);
+        Session session = sessionFactory.getCurrentSession();
 
-        if (foundBook.isEmpty()) return;
+        Book foundBook = session.get(Book.class, id);
+        if (foundBook == null) return;
 
-        jdbcTemplate.update(
-                "UPDATE book SET title=?, author_name=?, year_of_publication=? WHERE book_id=?",
-                updatedBook.getTitle(),
-                updatedBook.getAuthorName(),
-                updatedBook.getYearOfPublication(),
-                id
-        );
+        foundBook.setTitle(updatedBook.getTitle());
+        foundBook.setAuthorName(updatedBook.getAuthorName());
+        foundBook.setYearOfPublication(updatedBook.getYearOfPublication());
+
+        session.update(foundBook);
     }
 
     public void deleteById(int id) {
