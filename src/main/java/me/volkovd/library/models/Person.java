@@ -4,6 +4,8 @@ import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -23,6 +25,9 @@ public class Person {
     @Min(value = 0, message = "Год рождения должен быть больше 0")
     @Column(name = "birth_year")
     private int birthYear;
+
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.PERSIST)
+    private List<Book> books;
 
     public Person() {}
 
@@ -53,6 +58,32 @@ public class Person {
 
     public void setBirthYear(int birthYear) {
         this.birthYear = birthYear;
+    }
+
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
+    }
+
+    public void addBook(Book book) {
+        if (books == null)
+            books = new ArrayList<>();
+
+        books.add(book);
+        book.setOwner(this);
+    }
+
+    public void removeBook(Book book) {
+        if (books == null) return;
+        if (books.isEmpty()) return;
+
+        boolean isRemoved = books.remove(book);
+
+        if (isRemoved)
+            book.setOwner(null);
     }
 
     @Override
