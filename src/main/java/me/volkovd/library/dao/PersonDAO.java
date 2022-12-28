@@ -6,7 +6,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -81,13 +80,14 @@ public class PersonDAO {
         session.delete(person);
     }
 
+    @Transactional(readOnly = true)
     public List<Book> getBooksForPerson(int id) {
-        return jdbcTemplate.query(
-                "SELECT book_id AS id, title, " +
-                        "author_name, year_of_publication, COALESCE(person_id, 0) AS person_id FROM book WHERE person_id=?",
-                new BeanPropertyRowMapper<>(Book.class),
-                id
-        );
+        Session session = sessionFactory.getCurrentSession();
+
+        Query<Book> query = session.createQuery("SELECT b FROM Book b WHERE b.owner.id=?1", Book.class);
+        query.setParameter(1, id);
+
+        return query.getResultList();
     }
 
 }
