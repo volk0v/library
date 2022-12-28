@@ -5,7 +5,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,15 +33,11 @@ public class BookDAO {
         return query.getResultList();
     }
 
+    @Transactional(readOnly = true)
     public Optional<Book> getById(int id) {
-        List<Book> queryResult = jdbcTemplate.query(
-                "SELECT book_id AS id, title, author_name, year_of_publication, " +
-                        "COALESCE(person_id, 0) AS person_id FROM book WHERE book_id=?",
-                new BeanPropertyRowMapper<>(Book.class),
-                id
-        );
+        Session session = sessionFactory.getCurrentSession();
 
-        return queryResult.stream().findAny();
+        return Optional.ofNullable(session.get(Book.class, id));
     }
 
     public void save(Book book) {
