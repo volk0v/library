@@ -10,6 +10,11 @@ should be able to register readers, give them
 books and release books (after the reader returns
 the book back to the library).
 
+## Required environment variables
+- **DB_URL** - database URL
+- **DB_USERNAME** - username
+- **DB_PASSWORD** - password
+
 ## Realization
 
 There are two main entities: Person and Book. They need separate
