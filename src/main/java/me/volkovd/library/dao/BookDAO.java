@@ -1,6 +1,7 @@
 package me.volkovd.library.dao;
 
 import me.volkovd.library.models.Book;
+import me.volkovd.library.models.Person;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -71,22 +72,18 @@ public class BookDAO {
         query.executeUpdate();
     }
 
+    @Transactional
     public void assign(int bookId, int personId) {
-        Number personIdFromDb = jdbcTemplate.queryForObject(
-                "SELECT person_id FROM book WHERE book_id=?",
-                Integer.class,
-                bookId
-        );
+        Session session = sessionFactory.getCurrentSession();
 
-        int foundPersonId = personIdFromDb != null ? personIdFromDb.intValue() : 0;
+        Book book = session.get(Book.class, bookId);
 
-        if (foundPersonId != 0) return;
+        boolean hasOwner = book.getOwner() != null;
+        if (hasOwner) return;
 
-        jdbcTemplate.update(
-                "UPDATE book SET person_id=? WHERE book_id=?",
-                personId,
-                bookId
-        );
+        Person newOwner = session.get(Person.class, personId);
+
+        newOwner.addBook(book);
     }
 
     public void free(int bookId) {
