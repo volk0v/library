@@ -40,13 +40,11 @@ public class BookDAO {
         return Optional.ofNullable(session.get(Book.class, id));
     }
 
+    @Transactional
     public void save(Book book) {
-        jdbcTemplate.update(
-                "INSERT INTO book(title, author_name, year_of_publication) VALUES (?,?,?)",
-                book.getTitle(),
-                book.getAuthorName(),
-                book.getYearOfPublication()
-        );
+        Session session = sessionFactory.getCurrentSession();
+
+        session.save(book);
     }
 
     public void update(Book updatedBook, int id) {
