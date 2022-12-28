@@ -61,11 +61,14 @@ public class BookDAO {
         session.update(foundBook);
     }
 
+    @Transactional
     public void deleteById(int id) {
-        jdbcTemplate.update(
-                "DELETE FROM book WHERE book_id=?",
-                id
-        );
+        Session session = sessionFactory.getCurrentSession();
+
+        Query query = session.createQuery("DELETE FROM Book b WHERE b.id=?1");
+        query.setParameter(1, id);
+
+        query.executeUpdate();
     }
 
     public void assign(int bookId, int personId) {
