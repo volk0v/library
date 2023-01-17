@@ -34,4 +34,10 @@ public class PeopleService {
         peopleRepository.save(person);
     }
 
+    public void update(Person updatedPerson, int id) {
+        updatedPerson.setId(id);
+
+        peopleRepository.save(updatedPerson);
+    }
+
 }
