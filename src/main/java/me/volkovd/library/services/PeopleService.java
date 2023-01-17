@@ -30,4 +30,8 @@ public class PeopleService {
         return peopleRepository.findFirstByFullName(fullName);
     }
 
+    public void save(Person person) {
+        peopleRepository.save(person);
+    }
+
 }
