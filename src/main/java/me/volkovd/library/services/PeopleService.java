@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PeopleService {
@@ -19,6 +20,10 @@ public class PeopleService {
 
     public List<Person> findAll() {
         return peopleRepository.findAll();
+    }
+
+    public Optional<Person> findById(int id) {
+        return peopleRepository.findById(id);
     }
 
 }
