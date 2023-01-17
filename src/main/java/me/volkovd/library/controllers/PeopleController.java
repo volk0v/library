@@ -97,7 +97,7 @@ public class PeopleController {
         if (bindingResult.hasErrors())
             return "people/edit";
 
-        personDAO.update(person, id);
+        peopleService.update(person, id);
 
         return "redirect:/people";
     }
