@@ -26,4 +26,8 @@ public class PeopleService {
         return peopleRepository.findById(id);
     }
 
+    public Optional<Person> findFirstByFullName(String fullName) {
+        return peopleRepository.findFirstByFullName(fullName);
+    }
+
 }
