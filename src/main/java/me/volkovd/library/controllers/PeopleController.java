@@ -104,7 +104,7 @@ public class PeopleController {
 
     @DeleteMapping("/{id}")
     public String deletePerson(@PathVariable("id") int id) {
-        personDAO.delete(id);
+        peopleService.deleteById(id);
 
         return "redirect:/people";
     }
