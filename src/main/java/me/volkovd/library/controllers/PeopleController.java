@@ -32,7 +32,7 @@ public class PeopleController {
 
     @GetMapping
     public String getPageWithAllPeople(Model model) {
-        model.addAttribute("people", personDAO.getAll());
+        model.addAttribute("people", peopleService.findAll());
 
         return "people/index";
     }
