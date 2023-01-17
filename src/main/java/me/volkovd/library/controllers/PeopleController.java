@@ -60,7 +60,7 @@ public class PeopleController {
     @GetMapping("/{id}")
     public String getPageOfPerson(@PathVariable("id") int id,
                                   Model model) {
-        Optional<Person> foundPerson = peopleService.findById(id);
+        Optional<Person> foundPerson = peopleService.findPersonByIdWithInitializedBooks(id);
 
         if (foundPerson.isEmpty()) return "redirect:/people";
 
