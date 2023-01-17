@@ -60,12 +60,12 @@ public class PeopleController {
     @GetMapping("/{id}")
     public String getPageOfPerson(@PathVariable("id") int id,
                                   Model model) {
-        Optional<Person> foundPerson = personDAO.getById(id);
+        Optional<Person> foundPerson = peopleService.findById(id);
 
         if (foundPerson.isEmpty()) return "redirect:/people";
 
         Person person = foundPerson.get();
-        List<Book> books = personDAO.getBooksForPerson(person.getId());
+        List<Book> books = person.getBooks();
 
         model.addAttribute("person", person);
         model.addAttribute("books", books);
