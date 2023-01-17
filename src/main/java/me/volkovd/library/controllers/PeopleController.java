@@ -76,7 +76,7 @@ public class PeopleController {
     @GetMapping("/{id}/edit")
     public String getPageForEditingPerson(@PathVariable("id") int id,
                                           Model model) {
-        Optional<Person> foundPerson = personDAO.getById(id);
+        Optional<Person> foundPerson = peopleService.findById(id);
 
         if (foundPerson.isPresent()) {
             model.addAttribute("person", foundPerson.get());
