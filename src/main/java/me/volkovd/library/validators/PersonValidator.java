@@ -2,6 +2,7 @@ package me.volkovd.library.validators;
 
 import me.volkovd.library.dao.PersonDAO;
 import me.volkovd.library.models.Person;
+import me.volkovd.library.services.PeopleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -12,10 +13,12 @@ import java.util.Optional;
 @Component
 public class PersonValidator implements Validator {
 
+    private final PeopleService peopleService;
     private final PersonDAO personDAO;
 
     @Autowired
-    public PersonValidator(PersonDAO personDAO) {
+    public PersonValidator(PeopleService peopleService, PersonDAO personDAO) {
+        this.peopleService = peopleService;
         this.personDAO = personDAO;
     }
 
