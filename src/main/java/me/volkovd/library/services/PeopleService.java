@@ -40,4 +40,8 @@ public class PeopleService {
         peopleRepository.save(updatedPerson);
     }
 
+    public void deleteById(int id) {
+        peopleRepository.deleteById(id);
+    }
+
 }
