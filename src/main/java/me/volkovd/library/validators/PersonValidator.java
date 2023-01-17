@@ -31,7 +31,7 @@ public class PersonValidator implements Validator {
     public void validate(Object target, Errors errors) {
         Person targetPerson = (Person) target;
 
-        Optional<Person> foundPerson = personDAO.getByFullName(targetPerson.getFullName());
+        Optional<Person> foundPerson = peopleService.findFirstByFullName(targetPerson.getFullName());
         if (foundPerson.isPresent()) {
             Person person = foundPerson.get();
 
