@@ -31,4 +31,8 @@ public class BooksService {
         return booksRepository.findById(id);
     }
 
+    public void save(Book book) {
+        booksRepository.save(book);
+    }
+
 }
