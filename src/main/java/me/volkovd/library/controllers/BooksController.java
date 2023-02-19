@@ -32,7 +32,7 @@ public class BooksController {
 
     @GetMapping()
     public String getPageWithAllBooks(Model model) {
-        List<Book> books = bookDAO.getAll();
+        List<Book> books = booksService.findAll();
 
         model.addAttribute("books", books);
 
