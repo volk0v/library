@@ -1,6 +1,7 @@
 package me.volkovd.library.services;
 
 import me.volkovd.library.models.Book;
+import me.volkovd.library.models.Person;
 import me.volkovd.library.repositories.BooksRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,9 +13,11 @@ import java.util.Optional;
 public class BooksService {
 
     private final BooksRepository booksRepository;
+    private final PeopleService peopleService;
 
-    public BooksService(BooksRepository booksRepository) {
+    public BooksService(BooksRepository booksRepository, PeopleService peopleService) {
         this.booksRepository = booksRepository;
+        this.peopleService = peopleService;
     }
 
     @Transactional(readOnly = true)
@@ -43,6 +46,20 @@ public class BooksService {
 
     public void deleteById(int id) {
         booksRepository.deleteById(id);
+    }
+
+    public void assign(int bookId, int personId) {
+        Optional<Book> bookOpt = booksRepository.findById(bookId);
+        if (bookOpt.isEmpty()) return;
+        Book book = bookOpt.get();
+
+        if (book.getOwner() != null) return;
+
+        Optional<Person> personOpt = peopleService.findById(personId);
+        if (personOpt.isEmpty()) return;
+        Person person = personOpt.get();
+
+        person.addBook(book);
     }
 
 }
