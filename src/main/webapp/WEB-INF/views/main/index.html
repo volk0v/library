@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Главная страница</title>
+</head>
+<body>
+
+<header>
+    <h1>Главная страница</h1>
+</header>
+
+<br>
+
+<div>
+    <h3 th:href="@{/books?page=0&book_per_page=3}">Все книги</h3>
+</div>
+
+<div>
+    <h3 th:href="@{/people}">Все люди</h3>
+</div>
+
+</body>
+</html>
