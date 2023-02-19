@@ -41,7 +41,7 @@ public class BooksController {
 
     @GetMapping("/{id}")
     public String getPageOfBook(@PathVariable("id") int id, Model model) {
-        Optional<Book> foundBook = bookDAO.getById(id);
+        Optional<Book> foundBook = booksService.findById(id);
 
         if (foundBook.isEmpty())
             return "redirect:/books";
