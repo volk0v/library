@@ -3,6 +3,7 @@ package me.volkovd.library.controllers;
 import me.volkovd.library.dao.BookDAO;
 import me.volkovd.library.models.Book;
 import me.volkovd.library.models.Person;
+import me.volkovd.library.services.BooksService;
 import me.volkovd.library.services.PeopleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,11 +20,13 @@ import java.util.Optional;
 public class BooksController {
 
     private final BookDAO bookDAO;
+    private final BooksService booksService;
     private final PeopleService peopleService;
 
     @Autowired
-    public BooksController(BookDAO bookDAO, PeopleService peopleService) {
+    public BooksController(BookDAO bookDAO, BooksService booksService, PeopleService peopleService) {
         this.bookDAO = bookDAO;
+        this.booksService = booksService;
         this.peopleService = peopleService;
     }
 
