@@ -119,7 +119,7 @@ public class BooksController {
 
     @PatchMapping("/{bookId}/free")
     public String freeBook(@PathVariable("bookId") int bookId) {
-        bookDAO.free(bookId);
+        booksService.free(bookId);
 
         return "redirect:/books/" + bookId;
     }
