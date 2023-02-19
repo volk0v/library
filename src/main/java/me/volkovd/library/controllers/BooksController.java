@@ -73,7 +73,7 @@ public class BooksController {
         if (bindingResult.hasErrors())
             return "books/new";
 
-        bookDAO.save(book);
+        booksService.save(book);
 
         return "redirect:/books";
     }
