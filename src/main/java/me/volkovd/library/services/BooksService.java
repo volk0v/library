@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BooksService {
@@ -23,6 +24,11 @@ public class BooksService {
 
     List<Book> findAllByOwnerId(int id) {
         return booksRepository.findAllByOwnerId(id);
+    }
+
+    @Transactional(readOnly = true)
+    public Optional<Book> findById(int id) {
+        return booksRepository.findById(id);
     }
 
 }
