@@ -22,7 +22,7 @@ public class BooksService {
         return booksRepository.findAll();
     }
 
-    List<Book> findAllByOwnerId(int id) {
+    public List<Book> findAllByOwnerId(int id) {
         return booksRepository.findAllByOwnerId(id);
     }
 
