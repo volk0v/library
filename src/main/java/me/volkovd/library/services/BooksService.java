@@ -3,6 +3,8 @@ package me.volkovd.library.services;
 import me.volkovd.library.models.Book;
 import me.volkovd.library.models.Person;
 import me.volkovd.library.repositories.BooksRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,6 +23,11 @@ public class BooksService {
 
     public List<Book> findAll() {
         return booksRepository.findAll();
+    }
+
+    public List<Book> findAll(int pageNumber, int booksPerPage) {
+        Page<Book> page = booksRepository.findAll(PageRequest.of(pageNumber, booksPerPage));
+        return page.getContent();
     }
 
     public List<Book> findAllByOwnerId(int id) {
