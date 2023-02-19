@@ -35,4 +35,10 @@ public class BooksService {
         booksRepository.save(book);
     }
 
+    public void update(Book updatedBook, int id) {
+        updatedBook.setId(id);
+
+        booksRepository.save(updatedBook);
+    }
+
 }
