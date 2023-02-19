@@ -62,4 +62,17 @@ public class BooksService {
         person.addBook(book);
     }
 
+    public void free(int id) {
+        Optional<Book> bookOpt = booksRepository.findById(id);
+        if (bookOpt.isEmpty()) return;
+        Book book = bookOpt.get();
+
+        Person owner = book.getOwner();
+        if (owner == null) return;
+
+        owner.removeBook(book);
+
+        update(book, id);
+    }
+
 }
