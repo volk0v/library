@@ -1,6 +1,5 @@
 package me.volkovd.library.controllers;
 
-import me.volkovd.library.dao.BookDAO;
 import me.volkovd.library.models.Book;
 import me.volkovd.library.models.Person;
 import me.volkovd.library.services.BooksService;
@@ -19,13 +18,11 @@ import java.util.Optional;
 @RequestMapping("/books")
 public class BooksController {
 
-    private final BookDAO bookDAO;
     private final BooksService booksService;
     private final PeopleService peopleService;
 
     @Autowired
-    public BooksController(BookDAO bookDAO, BooksService booksService, PeopleService peopleService) {
-        this.bookDAO = bookDAO;
+    public BooksController(BooksService booksService, PeopleService peopleService) {
         this.booksService = booksService;
         this.peopleService = peopleService;
     }
