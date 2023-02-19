@@ -97,7 +97,7 @@ public class BooksController {
         if (bindingResult.hasErrors())
             return "books/edit";
 
-        bookDAO.update(book, id);
+        booksService.update(book, id);
 
         return "redirect:/books";
     }
