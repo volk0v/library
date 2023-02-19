@@ -28,8 +28,16 @@ public class BooksController {
     }
 
     @GetMapping()
-    public String getPageWithAllBooks(Model model) {
-        List<Book> books = booksService.findAll();
+    public String getPageWithAllBooks(@RequestParam(name = "page", defaultValue = "-1") int pageNumber,
+                                      @RequestParam(name = "books_per_page", defaultValue = "-1") int booksPerPage,
+                                      Model model) {
+        List<Book> books;
+
+        if (pageNumber != -1 && booksPerPage != -1) {
+            books = booksService.findAll(pageNumber, booksPerPage);
+        } else {
+            books = booksService.findAll();
+        }
 
         model.addAttribute("books", books);
 
