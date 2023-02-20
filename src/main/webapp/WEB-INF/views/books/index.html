@@ -27,7 +27,9 @@
 
     <div>
         <a th:each="i : ${#numbers.sequence(0, pagesAmount, 1)}"
-           th:href="@{/books?page={page}&books_per_page={booksPerPage} (page=${i}, booksPerPage=${booksPerPage})}"
+           th:href="@{/books?page={page}&books_per_page={booksPerPage}&sort_by_year={sortByYear}
+                (page=${i}, booksPerPage=${booksPerPage}, sortByYear=${sortByYear})
+            }"
            th:text="${i + 1}"
            style="margin-right: 3pt">
         </a>
