@@ -79,4 +79,10 @@ public class BooksService {
         update(book, id);
     }
 
+    public int getPagesNumber(int booksPerPage) {
+        int amount = (int) booksRepository.count();
+
+        return amount / booksPerPage;
+    }
+
 }
