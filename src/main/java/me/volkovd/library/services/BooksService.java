@@ -89,6 +89,7 @@ public class BooksService {
         person.addBook(book);
     }
 
+    @Transactional
     public void free(int id) {
         Optional<Book> bookOpt = booksRepository.findById(id);
         if (bookOpt.isEmpty()) return;
