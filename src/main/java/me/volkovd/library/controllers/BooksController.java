@@ -47,7 +47,11 @@ public class BooksController {
             model.addAttribute("pagesAmount", pagesAmount);
             model.addAttribute("booksPerPage", booksPerPage);
         } else {
-            books = booksService.findAll();
+            if (sortByYear) {
+                books = booksService.findAllWithSorting(BooksService.SortableField.YEAR_OF_PUBLICATION);
+            } else {
+                books = booksService.findAll();
+            }
         }
 
         model.addAttribute("books", books);
