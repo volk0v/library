@@ -49,6 +49,7 @@ public class BooksController {
         }
 
         model.addAttribute("books", books);
+        model.addAttribute("sortByYear", sortByYear);
 
         return "books/index";
     }
