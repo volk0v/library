@@ -5,6 +5,7 @@ import me.volkovd.library.models.Person;
 import me.volkovd.library.repositories.BooksRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,6 +13,21 @@ import java.util.Optional;
 
 @Service
 public class BooksService {
+
+    public enum SortableField {
+        YEAR_OF_PUBLICATION("yearOfPublication");
+
+        private final String fieldName;
+
+        SortableField(String fieldName) {
+            this.fieldName = fieldName;
+        }
+
+        @Override
+        public String toString() {
+            return fieldName;
+        }
+    }
 
     private final BooksRepository booksRepository;
     private final PeopleService peopleService;
@@ -27,6 +43,11 @@ public class BooksService {
 
     public List<Book> findAll(int pageNumber, int booksPerPage) {
         Page<Book> page = booksRepository.findAll(PageRequest.of(pageNumber, booksPerPage));
+        return page.getContent();
+    }
+
+    public List<Book> findAll(int pageNumber, int booksPerPage, SortableField field) {
+        Page<Book> page = booksRepository.findAll(PageRequest.of(pageNumber, booksPerPage, Sort.by(field.toString())));
         return page.getContent();
     }
 
