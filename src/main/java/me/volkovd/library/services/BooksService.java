@@ -52,10 +52,6 @@ public class BooksService {
         return page.getContent();
     }
 
-    public List<Book> findAllByOwnerId(int id) {
-        return booksRepository.findAllByOwnerId(id);
-    }
-
     public Optional<Book> findById(int id) {
         return booksRepository.findById(id);
     }
