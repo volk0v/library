@@ -18,6 +18,8 @@ import java.util.Optional;
 @RequestMapping("/books")
 public class BooksController {
 
+    private final String defaultPage = "/books?page=0&books_per_page=3&sort_by_year=true";
+
     private final BooksService booksService;
     private final PeopleService peopleService;
 
@@ -59,7 +61,7 @@ public class BooksController {
         Optional<Book> foundBook = booksService.findById(id);
 
         if (foundBook.isEmpty())
-            return "redirect:/books";
+            return "redirect:" + defaultPage;
 
         Book book = foundBook.get();
 
@@ -90,7 +92,7 @@ public class BooksController {
 
         booksService.save(book);
 
-        return "redirect:/books";
+        return "redirect:" + defaultPage;
     }
 
     @GetMapping("/{id}/edit")
@@ -98,7 +100,7 @@ public class BooksController {
                                        Model model) {
         Optional<Book> foundBook = booksService.findById(id);
 
-        if (foundBook.isEmpty()) return "redirect:/books";
+        if (foundBook.isEmpty()) return "redirect:" + defaultPage;
 
         model.addAttribute("book", foundBook.get());
 
@@ -114,14 +116,14 @@ public class BooksController {
 
         booksService.update(book, id);
 
-        return "redirect:/books";
+        return "redirect:" + defaultPage;
     }
 
     @DeleteMapping("/{id}")
     public String deleteBook(@PathVariable("id") int id) {
         booksService.deleteById(id);
 
-        return "redirect:/books";
+        return "redirect:" + defaultPage;
     }
 
     @PatchMapping("/{bookId}/assign")
