@@ -26,7 +26,7 @@
     <a th:href="@{/}">Домашняя страница</a>
 
     <div>
-        <a th:each="i : ${#numbers.sequence(0, pagesAmount, 1)}"
+        <a th:each="i : ${#numbers.sequence(0, pagesAmount - 1, 1)}"
            th:href="@{/books?page={page}&books_per_page={booksPerPage}&sort_by_year={sortByYear}
                 (page=${i}, booksPerPage=${booksPerPage}, sortByYear=${sortByYear})
             }"
