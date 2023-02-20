@@ -38,6 +38,7 @@ public class BooksController {
 
             int pagesAmount = booksService.getPagesNumber(booksPerPage);
             model.addAttribute("pagesAmount", pagesAmount);
+            model.addAttribute("booksPerPage", booksPerPage);
         } else {
             books = booksService.findAll();
         }
