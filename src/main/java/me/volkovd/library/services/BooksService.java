@@ -52,6 +52,10 @@ public class BooksService {
         return page.getContent();
     }
 
+    public List<Book> findAllWithSorting(SortableField field) {
+        return booksRepository.findAll(Sort.by(field.toString()));
+    }
+
     public Optional<Book> findById(int id) {
         return booksRepository.findById(id);
     }
