@@ -103,7 +103,7 @@ public class BooksService {
     public int getPagesNumber(int booksPerPage) {
         int amount = (int) booksRepository.count();
 
-        return amount / booksPerPage;
+        return (int) Math.ceil((double) amount / (double) booksPerPage);
     }
 
 }
