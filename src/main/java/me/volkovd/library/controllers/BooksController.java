@@ -30,11 +30,16 @@ public class BooksController {
     @GetMapping()
     public String getPageWithAllBooks(@RequestParam(name = "page", defaultValue = "-1") int pageNumber,
                                       @RequestParam(name = "books_per_page", defaultValue = "-1") int booksPerPage,
+                                      @RequestParam(name = "sort_by_year", defaultValue = "false") boolean sortByYear,
                                       Model model) {
         List<Book> books;
 
         if (pageNumber != -1 && booksPerPage != -1) {
-            books = booksService.findAll(pageNumber, booksPerPage);
+            if (sortByYear) {
+                books = booksService.findAll(pageNumber, booksPerPage, BooksService.SortableField.YEAR_OF_PUBLICATION);
+            } else {
+                books = booksService.findAll(pageNumber, booksPerPage);
+            }
 
             int pagesAmount = booksService.getPagesNumber(booksPerPage);
             model.addAttribute("pagesAmount", pagesAmount);
