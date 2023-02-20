@@ -20,5 +20,19 @@
     </div>
 </div>
 
+<hr>
+
+<div style="font-size: large">
+    <a th:href="@{/}">Домашняя страница</a>
+
+    <div>
+        <a th:each="i : ${#numbers.sequence(0, pagesAmount, 1)}"
+           th:href="@{/books?page={page}&books_per_page={booksPerPage} (page=${i}, booksPerPage=${booksPerPage})}"
+           th:text="${i + 1}"
+           style="margin-right: 3pt">
+        </a>
+    </div>
+</div>
+
 </body>
 </html>
