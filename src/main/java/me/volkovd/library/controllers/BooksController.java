@@ -41,7 +41,7 @@ public class BooksController {
 
         if (pageNumber != -1 && booksPerPage != -1) {
             if (doesNeedSortingByYear) {
-                books = booksService.findAll(pageNumber, booksPerPage, BooksService.SortableField.YEAR_OF_PUBLICATION);
+                books = booksService.findAll(pageNumber, booksPerPage, BooksService.SortableField.YEAR);
             } else {
                 books = booksService.findAll(pageNumber, booksPerPage);
             }
@@ -51,7 +51,7 @@ public class BooksController {
             model.addAttribute("booksPerPage", booksPerPage);
         } else {
             if (doesNeedSortingByYear) {
-                books = booksService.findAllWithSorting(BooksService.SortableField.YEAR_OF_PUBLICATION);
+                books = booksService.findAllWithSorting(BooksService.SortableField.YEAR);
             } else {
                 books = booksService.findAll();
             }

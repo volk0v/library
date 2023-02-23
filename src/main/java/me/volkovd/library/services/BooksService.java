@@ -17,7 +17,7 @@ import java.util.Optional;
 public class BooksService {
 
     public enum SortableField {
-        YEAR_OF_PUBLICATION("yearOfPublication");
+        YEAR("yearOfPublication");
 
         private final String fieldName;
 
