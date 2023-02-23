@@ -9,6 +9,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,6 +44,10 @@ public class BooksService {
     }
 
     public List<Book> findAll(int pageNumber, int booksPerPage) {
+        if (pageNumber < 0 || booksPerPage <= 0) {
+            return Collections.emptyList();
+        }
+
         Page<Book> page = booksRepository.findAll(PageRequest.of(pageNumber, booksPerPage));
         return page.getContent();
     }
