@@ -45,8 +45,8 @@ public class BooksController {
     }
 
     @GetMapping(params = {"page", "books_per_page"})
-    public String getAllWithPagination(@RequestParam(name = "page") @Min(0) Integer pageNumber,
-                                       @RequestParam(name = "books_per_page") @Min(0) Integer booksPerPage,
+    public String getAllWithPagination(@RequestParam("page") @Min(0) Integer pageNumber,
+                                       @RequestParam("books_per_page") @Min(0) Integer booksPerPage,
                                        Model model) {
         List<Book> books = booksService.findAll(pageNumber, booksPerPage);
         model.addAttribute("books", books);
@@ -59,7 +59,7 @@ public class BooksController {
     }
 
     @GetMapping(params = {"sort_by"})
-    public String getAllWithSorting(@RequestParam(name = "sort_by") BooksService.SortableField field,
+    public String getAllWithSorting(@RequestParam("sort_by") BooksService.SortableField field,
                                     Model model) {
         List<Book> books = booksService.findAllWithSorting(field);
         model.addAttribute("books", books);
@@ -72,9 +72,9 @@ public class BooksController {
     }
 
     @GetMapping(params = {"page", "books_per_page", "sort_by"})
-    public String getAllWithPaginationAndSorting(@RequestParam(name = "page") @Min(0) Integer pageNumber,
-                                                 @RequestParam(name = "books_per_page") @Min(0) Integer booksPerPage,
-                                                 @RequestParam(name = "sort_by") BooksService.SortableField field,
+    public String getAllWithPaginationAndSorting(@RequestParam("page") @Min(0) Integer pageNumber,
+                                                 @RequestParam("books_per_page") @Min(0) Integer booksPerPage,
+                                                 @RequestParam("sort_by") BooksService.SortableField field,
                                                  Model model) {
         List<Book> books = booksService.findAll(pageNumber, booksPerPage, field);
         model.addAttribute("books", books);
