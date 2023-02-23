@@ -88,6 +88,19 @@ public class BooksController {
         return "books/index";
     }
 
+    @GetMapping(params = {"sort_by"})
+    public String getAllWithSorting(@RequestParam(name = "sort_by") BooksService.SortableField field,
+                                    Model model) {
+        List<Book> books = booksService.findAllWithSorting(field);
+        model.addAttribute("books", books);
+
+        model.addAttribute("pagesAmount", 0);
+        model.addAttribute("booksPerPage", 0);
+        model.addAttribute("sortByYear", true);
+
+        return "books/index";
+    }
+
     @GetMapping("/{id}")
     public String getPageOfBook(@PathVariable("id") int id, Model model) {
         Optional<Book> foundBook = booksService.findById(id);
