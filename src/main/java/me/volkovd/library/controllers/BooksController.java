@@ -32,12 +32,12 @@ public class BooksController {
     @GetMapping()
     public String getPageWithAllBooks(@RequestParam(name = "page", defaultValue = "-1") int pageNumber,
                                       @RequestParam(name = "books_per_page", defaultValue = "-1") int booksPerPage,
-                                      @RequestParam(name = "sort_by_year", defaultValue = "false") boolean sortByYear,
+                                      @RequestParam(name = "doesNeedSortingByYear", defaultValue = "false") boolean doesNeedSortingByYear,
                                       Model model) {
         List<Book> books;
 
         if (pageNumber != -1 && booksPerPage != -1) {
-            if (sortByYear) {
+            if (doesNeedSortingByYear) {
                 books = booksService.findAll(pageNumber, booksPerPage, BooksService.SortableField.YEAR_OF_PUBLICATION);
             } else {
                 books = booksService.findAll(pageNumber, booksPerPage);
@@ -47,7 +47,7 @@ public class BooksController {
             model.addAttribute("pagesAmount", pagesAmount);
             model.addAttribute("booksPerPage", booksPerPage);
         } else {
-            if (sortByYear) {
+            if (doesNeedSortingByYear) {
                 books = booksService.findAllWithSorting(BooksService.SortableField.YEAR_OF_PUBLICATION);
             } else {
                 books = booksService.findAll();
@@ -55,7 +55,6 @@ public class BooksController {
         }
 
         model.addAttribute("books", books);
-        model.addAttribute("sortByYear", sortByYear);
 
         return "books/index";
     }
