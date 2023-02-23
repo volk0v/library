@@ -62,6 +62,18 @@ public class BooksController {
         return "books/index";
     }
 
+    @GetMapping(params = {""})
+    public String getAll(Model model) {
+        List<Book> books = booksService.findAll();
+        model.addAttribute("books", books);
+
+        model.addAttribute("pagesAmount", 0);
+        model.addAttribute("booksPerPage", 0);
+        model.addAttribute("sortByYear", false);
+
+        return "books/index";
+    }
+
     @GetMapping(params = {"page", "books_per_page"})
     public String getAllWithPagination(@RequestParam(name = "page") @Min(0) Integer pageNumber,
                                        @RequestParam(name = "books_per_page") @Min(0) Integer booksPerPage,
