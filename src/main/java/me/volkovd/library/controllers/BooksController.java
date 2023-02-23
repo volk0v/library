@@ -101,6 +101,21 @@ public class BooksController {
         return "books/index";
     }
 
+    @GetMapping(params = {"page", "books_per_page", "sort_by"})
+    public String getAllWithPaginationAndSorting(@RequestParam(name = "page") @Min(0) Integer pageNumber,
+                                                 @RequestParam(name = "books_per_page") @Min(0) Integer booksPerPage,
+                                                 @RequestParam(name = "sort_by") BooksService.SortableField field,
+                                                 Model model) {
+        List<Book> books = booksService.findAll(pageNumber, booksPerPage, field);
+        model.addAttribute("books", books);
+
+        model.addAttribute("pagesAmount", booksService.getPagesNumber(booksPerPage));
+        model.addAttribute("booksPerPage", booksPerPage);
+        model.addAttribute("sortByYear", true);
+
+        return "books/index";
+    }
+
     @GetMapping("/{id}")
     public String getPageOfBook(@PathVariable("id") int id, Model model) {
         Optional<Book> foundBook = booksService.findById(id);
