@@ -32,36 +32,6 @@ public class BooksController {
         this.peopleService = peopleService;
     }
 
-    @GetMapping()
-    public String getPageWithAllBooks(@RequestParam(name = "page", defaultValue = "-1") int pageNumber,
-                                      @RequestParam(name = "books_per_page", defaultValue = "-1") int booksPerPage,
-                                      @RequestParam(name = "doesNeedSortingByYear", defaultValue = "false") boolean doesNeedSortingByYear,
-                                      Model model) {
-        List<Book> books;
-
-        if (pageNumber != -1 && booksPerPage != -1) {
-            if (doesNeedSortingByYear) {
-                books = booksService.findAll(pageNumber, booksPerPage, BooksService.SortableField.YEAR);
-            } else {
-                books = booksService.findAll(pageNumber, booksPerPage);
-            }
-
-            int pagesAmount = booksService.getPagesNumber(booksPerPage);
-            model.addAttribute("pagesAmount", pagesAmount);
-            model.addAttribute("booksPerPage", booksPerPage);
-        } else {
-            if (doesNeedSortingByYear) {
-                books = booksService.findAllWithSorting(BooksService.SortableField.YEAR);
-            } else {
-                books = booksService.findAll();
-            }
-        }
-
-        model.addAttribute("books", books);
-
-        return "books/index";
-    }
-
     @GetMapping(params = {""})
     public String getAll(Model model) {
         List<Book> books = booksService.findAll();
