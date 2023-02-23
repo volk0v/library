@@ -39,7 +39,7 @@ public class BooksController {
 
         model.addAttribute("pagesAmount", 0);
         model.addAttribute("booksPerPage", 0);
-        model.addAttribute("sortByYear", false);
+        model.addAttribute("sortableField", null);
 
         return "books/index";
     }
@@ -53,7 +53,7 @@ public class BooksController {
 
         model.addAttribute("pagesAmount", booksService.getPagesNumber(booksPerPage));
         model.addAttribute("booksPerPage", booksPerPage);
-        model.addAttribute("sortByYear", false);
+        model.addAttribute("sortableField", null);
 
         return "books/index";
     }
@@ -66,7 +66,7 @@ public class BooksController {
 
         model.addAttribute("pagesAmount", 0);
         model.addAttribute("booksPerPage", 0);
-        model.addAttribute("sortByYear", true);
+        model.addAttribute("sortableField", field.name());
 
         return "books/index";
     }
@@ -81,7 +81,7 @@ public class BooksController {
 
         model.addAttribute("pagesAmount", booksService.getPagesNumber(booksPerPage));
         model.addAttribute("booksPerPage", booksPerPage);
-        model.addAttribute("sortByYear", true);
+        model.addAttribute("sortableField", field.name());
 
         return "books/index";
     }
