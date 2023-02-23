@@ -8,14 +8,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import java.util.List;
 import java.util.Optional;
 
 @Controller
 @RequestMapping("/books")
+@Validated
 public class BooksController {
 
     private final String defaultPage = "/books?page=0&books_per_page=3&sort_by_year=true";
@@ -55,6 +58,20 @@ public class BooksController {
         }
 
         model.addAttribute("books", books);
+
+        return "books/index";
+    }
+
+    @GetMapping(params = {"page", "books_per_page"})
+    public String getAllWithPagination(@RequestParam(name = "page") @Min(0) Integer pageNumber,
+                                       @RequestParam(name = "books_per_page") @Min(0) Integer booksPerPage,
+                                       Model model) {
+        List<Book> books = booksService.findAll(pageNumber, booksPerPage);
+        model.addAttribute("books", books);
+
+        model.addAttribute("pagesAmount", booksService.getPagesNumber(booksPerPage));
+        model.addAttribute("booksPerPage", booksPerPage);
+        model.addAttribute("sortByYear", false);
 
         return "books/index";
     }
