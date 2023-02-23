@@ -21,7 +21,7 @@ import java.util.Optional;
 @Validated
 public class BooksController {
 
-    private final String defaultPage = "/books?page=0&books_per_page=3&sort_by_year=true";
+    private final String defaultPage = "/books?page=0&books_per_page=3&sort_by=YEAR";
 
     private final BooksService booksService;
     private final PeopleService peopleService;
