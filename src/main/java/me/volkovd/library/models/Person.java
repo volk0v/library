@@ -29,7 +29,8 @@ public class Person {
     @OneToMany(mappedBy = "owner", cascade = CascadeType.PERSIST)
     private List<Book> books;
 
-    public Person() {}
+    public Person() {
+    }
 
     public Person(String fullName, int birthYear) {
         this.fullName = fullName;
