@@ -32,7 +32,7 @@ public class BooksController {
         this.peopleService = peopleService;
     }
 
-    @GetMapping(params = {""})
+    @GetMapping()
     public String getAll(Model model) {
         List<Book> books = booksService.findAll();
         model.addAttribute("books", books);
