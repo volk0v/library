@@ -171,4 +171,9 @@ public class BooksController {
         return "redirect:/books/" + bookId;
     }
 
+    @GetMapping("/search")
+    public String getSearchPage() {
+        return "books/search";
+    }
+
 }
