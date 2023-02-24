@@ -15,6 +15,11 @@
 
 <hr>
 
+<div th:if="${result.isEmpty()}">
+    <span th:text="${'Книг не найдено!'}"/>
+    <hr>
+</div>
+
 <div th:each="book : ${result}">
     <a th:href="@{/books/{id} (id=${book.getId()})}"
        th:text="${book.getTitle() + ', ' +
