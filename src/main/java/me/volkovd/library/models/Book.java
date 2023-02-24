@@ -3,6 +3,7 @@ package me.volkovd.library.models;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "book")
@@ -25,6 +26,9 @@ public class Book {
 
     @Column(name = "year_of_publication")
     private int yearOfPublication;
+
+    @Column(name = "delay_date")
+    private LocalDate delayDate;
 
     @ManyToOne
     @JoinColumn(name = "person_id", referencedColumnName = "person_id")
@@ -69,6 +73,14 @@ public class Book {
 
     public void setYearOfPublication(int yearOfPublication) {
         this.yearOfPublication = yearOfPublication;
+    }
+
+    public LocalDate getDelayDate() {
+        return delayDate;
+    }
+
+    public void setDelayDate(LocalDate delayDate) {
+        this.delayDate = delayDate;
     }
 
     public Person getOwner() {
