@@ -176,4 +176,14 @@ public class BooksController {
         return "books/search";
     }
 
+    @GetMapping(path = "/search", params = {"title"})
+    public String getSearchPageWithResult(@RequestParam("title") String title,
+                                          Model model) {
+        List<Book> books = booksService.findAllByTitleContains(title);
+
+        model.addAttribute("result", books);
+
+        return "books/search";
+    }
+
 }
