@@ -30,6 +30,9 @@ public class Book {
     @Column(name = "delay_date")
     private LocalDate delayDate;
 
+    @Transient
+    private Boolean isExpired = null;
+
     @ManyToOne
     @JoinColumn(name = "person_id", referencedColumnName = "person_id")
     private Person owner;
@@ -81,6 +84,16 @@ public class Book {
 
     public void setDelayDate(LocalDate delayDate) {
         this.delayDate = delayDate;
+    }
+
+    public boolean isExpired() {
+        if (isExpired == null) {
+            if (delayDate == null)
+                isExpired = false;
+            else
+                isExpired = LocalDate.now().isAfter(delayDate);
+        }
+        return isExpired;
     }
 
     public Person getOwner() {
