@@ -9,6 +9,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -95,6 +96,10 @@ public class BooksService {
         if (personOpt.isEmpty()) return;
         Person person = personOpt.get();
 
+        LocalDate currentDate = LocalDate.now();
+        LocalDate delayDate = currentDate.plusDays(10);
+        book.setDelayDate(delayDate);
+
         person.addBook(book);
     }
 
@@ -108,6 +113,7 @@ public class BooksService {
         if (owner == null) return;
 
         owner.removeBook(book);
+        book.setDelayDate(null);
 
         update(book, id);
     }
