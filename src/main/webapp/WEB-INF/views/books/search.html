@@ -26,7 +26,9 @@
                       book.getAuthorName() + ', ' +
                       book.getYearOfPublication()}"
     />
-    <span th:text="${'Книга сейчас у ' + book.getOwner().getFullName()}"></span>
+    <br>
+    <span th:if="${book.getOwner() != null}" th:text="${'Книга сейчас у ' + book.getOwner().getFullName()}"/>
+    <span th:if="${book.getOwner() == null}" th:text="${'Книга свободна'}"/>
     <hr>
 </div>
 
