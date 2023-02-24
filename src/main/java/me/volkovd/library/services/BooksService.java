@@ -65,6 +65,10 @@ public class BooksService {
         return booksRepository.findById(id);
     }
 
+    public List<Book> findAllByTitleContains(String title) {
+        return booksRepository.findAllByTitleContains(title);
+    }
+
     public void save(Book book) {
         booksRepository.save(book);
     }
