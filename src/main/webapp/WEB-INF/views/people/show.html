@@ -18,9 +18,10 @@
     <strong>Книги:</strong>
 
     <div th:each="book : ${books}">
-        <span th:text="${book.getTitle() + ', ' +
-                      book.getAuthorName() + ', ' +
-                      book.getYearOfPublication()}">
+        <span th:style="${book.isExpired() ? 'color: red' : ''}"
+              th:text="${book.getTitle() + ', ' +
+                    book.getAuthorName() + ', ' +
+                    book.getYearOfPublication()}">
         </span>
     </div>
 
